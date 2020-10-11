@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -16,14 +17,14 @@ public class CarModelsView {
 
     private int minPrice;
     private String title;
-    private List<Bodies> bodies;
+    private List<BodiesView> bodies;
     private String titleRus;
     private String transportType;
 
     public CarModelsView(CarModels carModels){
         this.minPrice = carModels.getMinPrice();
         this.title = carModels.getTitle();
-        bodies = carModels.getBodies();
+        bodies = carModels.getBodies().stream().map(BodiesView::new).collect(Collectors.toList());
         this.titleRus = carModels.getTitleRus();
         this.transportType = carModels.getTransportType().getTitle();
     }
